@@ -1042,6 +1042,7 @@ class Collector(object):
 
     def _raw_log_sqlite_db(self, sqlite_db_path, ignore):
         with connect(sqlite_db_path) as conn:
+            conn.text_factory = str
             cursor = conn.cursor()
             cursor.execute('SELECT * from sqlite_master WHERE type = "table"')
             tables = cursor.fetchall()
