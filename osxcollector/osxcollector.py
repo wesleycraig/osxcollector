@@ -504,7 +504,7 @@ class Logger(object):
         """
         record.update(Logger.Extra.extras)
         try:
-            cls.output_file.write(dumps(record))
+            cls.output_file.write(dumps(record, indent=4))
             cls.output_file.write('\n')
             cls.output_file.flush()
             cls.lines_written += 1
@@ -568,7 +568,7 @@ class Logger(object):
             Logger.Extra.extras[self.key] = self.val
 
             if DEBUG_MODE:
-                sys.stderr.write(dumps({self.key: self.val}))
+                sys.stderr.write(dumps({self.key: self.val}, indent=4))
                 sys.stderr.write('\n')
 
         def __exit__(self, type, value, traceback):
