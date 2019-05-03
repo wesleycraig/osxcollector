@@ -1195,8 +1195,16 @@ class Collector(object):
             ('databases', 'Databases'),
             ('localstorage', 'LocalStorage'),
         ]
+
+        def ignore_db_path(sqlite_db_path):
+            # Files ending in '-shm' are sqlite shared memory
+            # Files ending in '-wal' are sqlite write-ahead logs
+            # Neither can be opened directly by sqlite
+            return sqlite_db_path.endswith('-shm') or sqlite_db_path.endswith('-wal')
+
         self._log_directories_of_dbs(
             directories_of_dbs, profile_path, safari_ignored_sqlite_keys,
+            ignore_db_path
         )
 
         # collect file info for each extension
