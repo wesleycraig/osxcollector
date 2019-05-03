@@ -372,8 +372,8 @@ def _normalize_val(val, key=None):
                 # by protocol and port number, e.g. "moc.elpmaxe.www.:http:80"
                 if key in ['rev_host', 'scope']:
                     val = val.split(':')[0][::-1]
-                return unicode(val).decode(encoding='utf-8', errors='ignore')
-            except UnicodeEncodeError:
+                return val.decode(encoding='utf-8', errors='ignore')
+            except (UnicodeEncodeError, UnicodeDecodeError):
                 return val
         elif isinstance(val, buffer):
             # Not all buffers will contain text so this is expected to fail
